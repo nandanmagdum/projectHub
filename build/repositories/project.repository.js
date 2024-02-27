@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteProjectRepo = exports.updateProjectRepo = exports.getProjectRepo = exports.createProjectRepo = void 0;
+exports.getAllProjectRepo = exports.deleteProjectRepo = exports.updateProjectRepo = exports.getProjectRepo = exports.createProjectRepo = void 0;
 const project_model_1 = require("../database/models/project.model");
 const createProjectRepo = (project) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -55,3 +55,19 @@ const deleteProjectRepo = (projectId) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.deleteProjectRepo = deleteProjectRepo;
+const getAllProjectRepo = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const allProjects = yield project_model_1.projectModel.find();
+        if (allProjects) {
+            return allProjects;
+        }
+        else {
+            return null;
+        }
+    }
+    catch (error) {
+        console.log("Error getting all projects");
+        return null;
+    }
+});
+exports.getAllProjectRepo = getAllProjectRepo;

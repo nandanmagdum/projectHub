@@ -15,4 +15,5 @@ export interface IProjectInterface extends Document {
     contactInfo:string[],
     branch:string,
     ownerId:string,
+    createdAt:string
 }

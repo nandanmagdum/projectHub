@@ -12,9 +12,10 @@ export const userSchema = new Schema<IUserInterface>({
     address:{type:String, required:true},
     profession:{type:String, required:true},
     workExp:{type:String, required:true},
-    projectId:{type:[String] , default: []},
-    contributedProjectId:{type:[String], default:[]},
-    ideaId:{type:[String], default:[]}
+    projects:{type:[String] , default: []},
+    contributedProjects:{type:[String], default:[]},
+    ideas:{type:[String], default:[]},
+    createdAt:{type:String, required:true},
 });
 
 export const userModel = mongoose.model<IUserInterface>("UserModel", userSchema);

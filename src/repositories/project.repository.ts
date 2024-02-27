@@ -39,4 +39,16 @@ export const deleteProjectRepo = async(projectId:string):Promise<boolean> => {
     }
 }
 
-// export const getAllProjectRepo = async():Promise<IProjectInterface[] | null> 
+export const getAllProjectRepo = async():Promise<IProjectInterface[] | null> => {
+    try {
+        const allProjects = await projectModel.find();
+        if(allProjects) {
+            return  allProjects;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.log("Error getting all projects");
+        return null;
+    }
+}

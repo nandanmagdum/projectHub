@@ -18,6 +18,7 @@ export const projectSchema = new Schema<IProjectInterface>({
     contactInfo:{type:[String], default:[]},
     branch:{type:String, required:true},
     ownerId:{type:String, required:true},
+    createdAt:{type:String, required:true}
 });
 
 export const projectModel = mongoose.model<IProjectInterface>("ProjectModel", projectSchema);

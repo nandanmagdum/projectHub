@@ -21,5 +21,6 @@ exports.projectSchema = new mongoose_2.Schema({
     contactInfo: { type: [String], default: [] },
     branch: { type: String, required: true },
     ownerId: { type: String, required: true },
+    createdAt: { type: String, required: true }
 });
 exports.projectModel = mongoose_1.default.model("ProjectModel", exports.projectSchema);

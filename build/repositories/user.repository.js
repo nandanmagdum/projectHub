@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllUserRepo = exports.deleteUserRepo = exports.updateUserRepo = exports.getUserRepo = exports.createUserRepo = void 0;
+exports.updateUserWhenProjectDeletedRepo = exports.updateUserWhenProjectCreatedRepo = exports.getAllUserRepo = exports.deleteUserRepo = exports.updateUserRepo = exports.getUserRepo = exports.createUserRepo = void 0;
 const user_model_1 = require("../database/models/user.model");
 const createUserRepo = (user) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -79,3 +79,35 @@ const getAllUserRepo = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getAllUserRepo = getAllUserRepo;
+const updateUserWhenProjectCreatedRepo = (projectId, ownerId) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const success = yield user_model_1.userModel.findOneAndUpdate({ userId: ownerId }, { $push: { projects: projectId } }, { new: true });
+        if (success) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    catch (error) {
+        console.log(error);
+        return false;
+    }
+});
+exports.updateUserWhenProjectCreatedRepo = updateUserWhenProjectCreatedRepo;
+const updateUserWhenProjectDeletedRepo = (projectId, ownerId) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const success = yield user_model_1.userModel.findOneAndUpdate({ userId: ownerId }, { $pull: { projects: projectId } }, { new: true });
+        if (success) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    catch (error) {
+        console.log(error);
+        return false;
+    }
+});
+exports.updateUserWhenProjectDeletedRepo = updateUserWhenProjectDeletedRepo;

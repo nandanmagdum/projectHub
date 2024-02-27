@@ -9,14 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteProjectController = exports.updateProjectController = exports.getProjectController = exports.createProjectController = void 0;
+exports.getAllProjectsController = exports.deleteProjectController = exports.updateProjectController = exports.getProjectController = exports.createProjectController = void 0;
 const project_repository_1 = require("../repositories/project.repository");
+const user_repository_1 = require("../repositories/user.repository");
 const createProjectController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const project = req.body;
     try {
         const success = yield (0, project_repository_1.createProjectRepo)(project);
         if (success) {
-            res.status(200).json({ "Status": "Project created" });
+            const success2 = yield (0, user_repository_1.updateUserWhenProjectCreatedRepo)(project.projectId, project.ownerId);
+            if (success2) {
+                res.status(200).json({ "Status": "Project created && user updated" });
+            }
+            else {
+                res.status(200).json({ "Status": "Project created but user not updated" });
+            }
         }
     }
     catch (error) {
@@ -59,10 +66,17 @@ const updateProjectController = (req, res) => __awaiter(void 0, void 0, void 0, 
 exports.updateProjectController = updateProjectController;
 const deleteProjectController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const projectId = req.params.projectId;
+    const ownerId = req.params.ownerId;
     try {
         const success = yield (0, project_repository_1.deleteProjectRepo)(projectId);
         if (success) {
-            res.status(200).json({ "Status": "Project deleted" });
+            const success2 = yield (0, user_repository_1.updateUserWhenProjectDeletedRepo)(projectId, ownerId);
+            if (success2) {
+                res.status(200).json({ "status": "Project deleted && user updated" });
+            }
+            else {
+                res.status(200).json({ "Status": "Project deleted but user not updated" });
+            }
         }
     }
     catch (error) {
@@ -71,3 +85,20 @@ const deleteProjectController = (req, res) => __awaiter(void 0, void 0, void 0, 
     }
 });
 exports.deleteProjectController = deleteProjectController;
+// get all projects
+const getAllProjectsController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const success = yield (0, project_repository_1.getAllProjectRepo)();
+        if (success) {
+            res.status(200).json({ "All Projects": success });
+        }
+        else {
+            res.status(500).json({ "Error": "Error getting all projects" });
+        }
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ "Error": error });
+    }
+});
+exports.getAllProjectsController = getAllProjectsController;

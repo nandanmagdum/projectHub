@@ -10,7 +10,8 @@ export interface IUserInterface extends Document {
     address:string,
     profession:string,
     workExp:string,
-    projectId:string[],
-    contributedProjectId:string[],
-    ideaId:string[],
+    projects:string[],
+    contributedProjects:string[],
+    ideas:string[],
+    createdAt:string,
 }

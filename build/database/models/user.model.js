@@ -16,8 +16,9 @@ exports.userSchema = new mongoose_2.Schema({
     address: { type: String, required: true },
     profession: { type: String, required: true },
     workExp: { type: String, required: true },
-    projectId: { type: [String], default: [] },
-    contributedProjectId: { type: [String], default: [] },
-    ideaId: { type: [String], default: [] }
+    projects: { type: [String], default: [] },
+    contributedProjects: { type: [String], default: [] },
+    ideas: { type: [String], default: [] },
+    createdAt: { type: String, required: true },
 });
 exports.userModel = mongoose_1.default.model("UserModel", exports.userSchema);
