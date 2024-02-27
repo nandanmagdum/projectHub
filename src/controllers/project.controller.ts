@@ -58,3 +58,6 @@ export const deleteProjectController = async(req:Request, res:Response) => {
         res.status(500).json({"Error":error});
     }
 }
+
+// get all projects
+// export const getAllProject

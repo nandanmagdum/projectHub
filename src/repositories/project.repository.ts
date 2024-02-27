@@ -38,3 +38,5 @@ export const deleteProjectRepo = async(projectId:string):Promise<boolean> => {
         return false;
     }
 }
+
+// export const getAllProjectRepo = async():Promise<IProjectInterface[] | null> 
